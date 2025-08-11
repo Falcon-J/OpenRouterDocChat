@@ -1,0 +1,22 @@
+# Sample Document
+
+This is a sample text document for testing the OpenRouter Doc Chat tool.
+
+## Introduction
+
+This document contains sample content that can be used to test the document loading and chat functionality.
+
+## Content
+
+You can ask questions about this document and the AI will respond based on the content provided here.
+
+## Features
+
+- Document loading from PDF and text files
+- Interactive chat with OpenRouter LLM
+- Robust error handling and retry logic
+- Simple chunking for large documents
+
+## Usage
+
+Simply load this document and start asking questions about its content.

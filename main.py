@@ -9,10 +9,8 @@ import os
 def run_interactive(doc_path: str):
     loader = DocumentLoader()
     try:
-        if doc_path.lower().endswith('.pdf'):
-            text = loader.load_pdf(doc_path)
-        else:
-            text = loader.load_txt(doc_path)
+        # Use the new auto-detection method
+        text = loader.load_document(doc_path)
     except Exception as e:
         print(f"Error loading document: {e}")
         return
@@ -20,7 +18,13 @@ def run_interactive(doc_path: str):
     client = OpenRouterClient()
     chat = DocChat(client)
 
-    print("Document loaded. You can now ask questions. Type 'exit' to quit.")
+    # Show file info
+    supported_exts = DocumentLoader.get_supported_extensions()
+    print(f"Document loaded successfully!")
+    print(f"File type: {os.path.splitext(doc_path)[1]}")
+    print(f"Supported formats: {', '.join(supported_exts)}")
+    print(f"Text length: {len(text)} characters")
+    print("You can now ask questions. Type 'exit' to quit.")
     while True:
         q = input('\nQuestion> ').strip()
         if not q:
@@ -36,6 +40,7 @@ def run_interactive(doc_path: str):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--doc', '-d', required=True, help='Path to document (PDF or .txt)')
+    parser.add_argument('--doc', '-d', required=True, 
+                       help='Path to document (.pdf, .txt, .docx, .md)')
     args = parser.parse_args()
     run_interactive(args.doc)
